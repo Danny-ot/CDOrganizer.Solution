@@ -1,0 +1,61 @@
+@{
+    Layout = "_Layout";
+    @using CDOrganizer.Models;
+}
+<main class="artist-main">
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark artist-nav">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4 h1" style="margin-left: 4rem;">CDStack</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="/" class="nav-link">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href='/artistes/@Model["artist"].Id/songs/new' class="nav-link">
+                    Add New Record/Song
+                </a>
+            </li>
+            <li>
+                <a href="/artistes" class="nav-link">
+                    Back to artistes
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <div class="text-secondary text-center">
+            Danny Technologies
+        </div>
+    </div>
+    <div class="artistes-details">
+        <h1 class="text-center text-white mt-3">@Model["artist"].Name's Songs</h1>
+        @if(Model["records"].Count == 0){
+            <div class="no-artists">
+                <h5>There are no songs yet</h5>
+            </div>
+        }else{
+            <div class="row justify-content-around px-4">
+                @foreach (Record record in Model["records"])
+                {
+                <div class="col-md-3 mt-5">
+                    <div class="card text-center">
+                        <div class="card-img-top">
+                            <img src="~/img/musicDisk.jpg" alt="disk" width="100px" height="100px">
+                        </div>
+                        <div class="card-body">
+                            <p class="h2">@record.Song</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href='/artistes/@Model["artist"].Id/songs/@record.Id' class="btn btn-outline-dark">Edit Song</a>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        }
+    </div>
+</main>

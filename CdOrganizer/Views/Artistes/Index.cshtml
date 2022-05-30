@@ -1,0 +1,60 @@
+@{
+    Layout = "_Layout";
+    @using CDOrganizer.Models;
+}
+
+<main class="artist-main">
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark artist-nav">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4 h1" style="margin-left: 4rem;">CDStack</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="/" class="nav-link">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="/artistes/new" class="nav-link">
+                    Add new artist
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link">
+                    Search song by artist
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <div class="text-secondary text-center">
+            Danny Technologies
+        </div>
+    </div>
+    <div class="artistes-details">
+        <h1 class="text-center text-white mt-3">Artistes</h1>
+        @if(Model.Count == 0){
+            <div class="no-artists">
+                <h5>There are no artists yet</h5>
+            </div>
+        }else{
+            <div class="row justify-content-around px-4">
+                @foreach (Artist artist in Model)
+                {
+                <div class="col-md-3 mt-5">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <p class="h2">@artist.Name</p>
+                            <p>@artist.GetRecordsAmount() Song(s)</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/artistes/@artist.Id" class="btn btn-outline-dark">View Songs</a>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        }
+    </div>
+</main>
