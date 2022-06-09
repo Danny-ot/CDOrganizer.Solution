@@ -41,5 +41,18 @@ namespace CDOrganizer.Models
         {
             return Records.Count;
         }
+
+        public static List<Artist> Search(string artist)
+        {
+            List<Artist> artists = new List<Artist>{};
+            foreach(Artist artist1 in _artists)
+            {
+                if(artist1.Name.ToLower().Contains(artist.ToLower()))
+                {
+                    artists.Add(artist1);
+                }
+            }
+            return artists;
+        }
     }
 }

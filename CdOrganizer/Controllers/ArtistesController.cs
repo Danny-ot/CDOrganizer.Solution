@@ -49,5 +49,19 @@ namespace CDOrganizer.Controllers
             model.Add("records" , records);
             return View("Show" , model);
         }
+
+        [HttpGet("/artistes/search")]
+        public ActionResult Search()
+        {
+            List<Artist> artists = new List<Artist>{};
+            return View(artists);
+        }
+
+        [HttpPost("/artistes/search")]
+        public ActionResult Search(string name)
+        {
+            List<Artist> artists = Artist.Search(name);
+            return View("Search" , artists);
+        }
     }
 }

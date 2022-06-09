@@ -19,7 +19,7 @@ namespace CDOrganizer.Tests
             Artist artist = new Artist("bign");
 
             // Assert
-            Assert.AreEqual(typeof(Artist) , artist.GetType());
+            Assert.AreEqual(typeof(Artist), artist.GetType());
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace CDOrganizer.Tests
             string artistName = artist.Name;
 
             // Assert
-            Assert.AreEqual(name , artistName);
+            Assert.AreEqual(name, artistName);
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace CDOrganizer.Tests
             string ArtistGotten = artist1.Name;
 
             // Assert
-            Assert.AreEqual(newArtist , ArtistGotten);
+            Assert.AreEqual(newArtist, ArtistGotten);
         }
 
         [TestMethod]
@@ -58,13 +58,13 @@ namespace CDOrganizer.Tests
             // Arrange
             Artist artist1 = new Artist("city guys");
             Artist artist2 = new Artist("city boys");
-            List<Artist> ArtistsCreated = new List<Artist>{artist1 , artist2};
+            List<Artist> ArtistsCreated = new List<Artist> { artist1, artist2 };
 
             // Act
             List<Artist> gottenArtists = Artist.GetAllArtists();
 
             // Assert
-            CollectionAssert.AreEqual(ArtistsCreated , gottenArtists);
+            CollectionAssert.AreEqual(ArtistsCreated, gottenArtists);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace CDOrganizer.Tests
             int artistId = artist.Id;
 
             // Assert
-            Assert.AreEqual(1 , artistId);
+            Assert.AreEqual(1, artistId);
         }
 
         [TestMethod]
@@ -91,7 +91,7 @@ namespace CDOrganizer.Tests
             Artist secondArtist = Artist.GetArtist(2);
 
             // Assert
-            Assert.AreEqual(artist2 , secondArtist);
+            Assert.AreEqual(artist2, secondArtist);
         }
 
         [TestMethod]
@@ -103,13 +103,13 @@ namespace CDOrganizer.Tests
             Record record2 = new Record("Stay Gold");
             artist.AddRecord(record1);
             artist.AddRecord(record2);
-            List<Record> btsRecords = new List<Record>{record1 , record2};
+            List<Record> btsRecords = new List<Record> { record1, record2 };
 
             // Act
             List<Record> records = artist.Records;
 
             // Assert
-            CollectionAssert.AreEqual(btsRecords , records);
+            CollectionAssert.AreEqual(btsRecords, records);
         }
 
         [TestMethod]
@@ -121,13 +121,71 @@ namespace CDOrganizer.Tests
             Record record2 = new Record("Stay Gold");
             artist.AddRecord(record1);
             artist.AddRecord(record2);
-            List<Record> btsRecords = new List<Record>{record1 , record2};
+            List<Record> btsRecords = new List<Record> { record1, record2 };
 
             // Act
             int recordAmount = artist.GetRecordsAmount();
 
             // Assert
-            Assert.AreEqual(btsRecords.Count , recordAmount);
+            Assert.AreEqual(btsRecords.Count, recordAmount);
+        }
+
+        [TestMethod]
+        public void SearchByArtist_ReturnsAnEmptyList_ArtistList()
+        {
+            // Arrange
+            List<Artist> artists = new List<Artist> { };
+
+            // Act
+            string artist = "Dach";
+            List<Artist> artistConfirmed = Artist.Search(artist);
+
+            // Assert
+            CollectionAssert.AreEqual(artists, artistConfirmed);
+        }
+
+        [TestMethod]
+        public void SearchByArtist_ReturnsTheArtisteswhichNameIsEqualToTheSearchedName_ArtistList()
+        {
+            // Arrange
+            Artist artist = new Artist("danny");
+            Artist artist1 = new Artist("danny");
+
+            // Act
+            List<Artist> artists = new List<Artist>{artist , artist1};
+            List<Artist> confirmedArtist = Artist.Search("danny");
+
+            // Assert
+            CollectionAssert.AreEqual(artists , confirmedArtist);
+        }
+        [TestMethod]
+        public void SearchByArtist_ReturnsTheArtisteswhichNameContainsTheSearchedName_ArtistList()
+        {
+            // Arrange
+            Artist artist = new Artist("danny");
+            Artist artist1 = new Artist("dannyOladeji");
+
+            // Act
+            List<Artist> artists = new List<Artist>{artist , artist1};
+            List<Artist> confirmedArtist = Artist.Search("danny");
+
+            // Assert
+            CollectionAssert.AreEqual(artists , confirmedArtist);
+        }
+
+        [TestMethod]
+        public void SearchByArtist_ReturnsTheArtistsSearchedIrrespectiveOfTheCase_ArtistList()
+        {
+            // Arrange
+            Artist artist = new Artist("danny");
+            Artist artist1 = new Artist("dannyOladeji");
+
+            // Act
+            List<Artist> artists = new List<Artist>{artist , artist1};
+            List<Artist> confirmedArtist = Artist.Search("DANNY");
+
+            // Assert
+            CollectionAssert.AreEqual(artists , confirmedArtist);
         }
     }
 }

@@ -1,0 +1,37 @@
+@{
+    Layout = "_FormLayout";
+    @using CDOrganizer.Models;
+}
+<form action="/artistes/search" method="post">
+    <h1 class="text-center">Search For Artist</h1>
+    <div class="form-group mt-2">
+        <input type="search" class="form-control text-center" id="name" name="name" required>
+    </div>
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-light">Search</button>
+    </div>
+</form>
+<div class="container px-3">
+    @if(Model.Count == 0){
+        <div class="no-artists">
+            <h5>No Searched Artistes Yet</h5>
+        </div>
+    }else{
+        <div class="row text-dark">
+            @foreach (Artist artist in Model)
+                {
+                <div class="col-md-5 mt-5">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <p class="h2">@artist.Name</p>
+                            <p>@artist.GetRecordsAmount() Song(s)</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/artistes/@artist.Id" class="btn btn-outline-dark">View Songs</a>
+                        </div>
+                    </div>
+                </div>
+                }
+        </div>
+    }
+</div>
